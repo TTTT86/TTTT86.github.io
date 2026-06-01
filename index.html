@@ -3,216 +3,1197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>乔越 | 个人主页</title>
+    <title>乔越 | 数据科学与大数据技术</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary-color: #06b6d4;
+            --accent-color: #8b5cf6;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-color: #334155;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.3);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Microsoft Yahei", sans-serif;
+            font-family: 'Inter', 'Microsoft YaHei', sans-serif;
             scroll-behavior: smooth;
         }
+
         body {
-            background-color: #0f172a;
-            color: #e2e8f0;
-            line-height: 1.8;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
+
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 0 20px;
         }
+
         nav {
-            padding: 20px 0;
             position: fixed;
-            width: 100%;
             top: 0;
-            background: rgba(15, 23, 42, 0.9);
-            z-index: 999;
-            backdrop-filter: blur(10px);
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
+
+        nav.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
         .nav-wrap {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 16px 0;
         }
+
         .logo {
-            font-size: 22px;
-            font-weight: bold;
-            color: #38bdf8;
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
-        .nav a {
-            color: #cbd5e1;
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            position: relative;
+            color: var(--text-secondary);
             text-decoration: none;
-            margin-left: 24px;
-            transition: 0.3s;
+            font-weight: 500;
+            padding: 8px 0;
+            transition: color 0.3s ease;
         }
-        .nav a:hover {
-            color: #38bdf8;
+
+        .nav-links a:hover {
+            color: var(--primary-color);
         }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+
         .hero {
-            padding: 140px 0 70px;
-            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            position: relative;
+            overflow: hidden;
         }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .hero h1 {
-            font-size: 46px;
-            color: #fff;
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--text-primary), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-title-highlight {
+            color: var(--primary-color);
+            -webkit-text-fill-color: var(--primary-color);
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            max-width: 600px;
+        }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 48px;
+        }
+
+        .tag {
+            padding: 10px 24px;
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 50px;
+            font-size: 14px;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .tag:hover {
+            background: rgba(59, 130, 246, 0.3);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 48px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .about-text {
+            animation: fadeInRight 0.8s ease-out;
+        }
+
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .about-text p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .about-text strong {
+            color: var(--primary-color);
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            background: var(--bg-card-hover);
+        }
+
+        .stat-item .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: block;
+        }
+
+        .stat-item .stat-label {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .about-image {
+            position: relative;
+            animation: fadeInLeft 0.8s ease-out;
+        }
+
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .about-image img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 24px;
+            z-index: -1;
+            opacity: 0.3;
+            animation: rotateGradient 8s linear infinite;
+        }
+
+        @keyframes rotateGradient {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+
+        .skill-card {
+            background: var(--bg-card);
+            padding: 28px;
+            border-radius: 16px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+            background: var(--bg-card-hover);
+        }
+
+        .skill-card i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .skill-card h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .skill-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary-color), var(--accent-color));
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 48px;
+            display: flex;
+        }
+
+        .timeline-item:nth-child(odd) {
+            justify-content: flex-start;
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-end;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: var(--bg-card);
+            padding: 28px;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            background: var(--bg-card-hover);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            border-right: 4px solid var(--secondary-color);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            border: 4px solid var(--bg-dark);
+            z-index: 1;
+            animation: pulseDot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5); }
+            50% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+        }
+
+        .timeline-date {
+            font-size: 14px;
+            color: var(--primary-color);
+            font-weight: 600;
             margin-bottom: 8px;
         }
-        .hero p {
-            font-size: 17px;
-            color: #94a3b8;
-            margin-bottom: 20px;
+
+        .timeline-title {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
         }
-        .tags span {
-            display: inline-block;
-            background: #1e293b;
-            color: #38bdf8;
-            padding: 6px 14px;
-            border-radius: 30px;
-            margin: 6px 4px;
+
+        .timeline-company {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .timeline-description {
             font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
         }
-        section {
-            padding: 50px 0;
+
+        .timeline-description ul {
+            margin-top: 12px;
+            padding-left: 20px;
         }
-        .sec-title {
-            font-size: 26px;
-            border-left: 4px solid #38bdf8;
-            padding-left: 12px;
-            margin-bottom: 26px;
-            color: #fff;
+
+        .timeline-description li {
+            margin-bottom: 8px;
         }
-        .card {
-            background: #1e293b;
-            padding: 26px;
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image i {
+            font-size: 64px;
+            color: white;
+            opacity: 0.8;
+        }
+
+        .project-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            100% { left: 100%; }
+        }
+
+        .project-content {
+            padding: 24px;
+        }
+
+        .project-category {
+            font-size: 12px;
+            color: var(--primary-color);
+            background: rgba(59, 130, 246, 0.15);
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .project-title {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .project-description {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .project-tag {
+            font-size: 12px;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px 10px;
+            border-radius: 8px;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .project-link {
+            padding: 8px 16px;
+            background: rgba(59, 130, 246, 0.15);
+            border-radius: 8px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            background: rgba(59, 130, 246, 0.3);
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            border-radius: 24px;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .contact-section p {
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-item {
+            background: var(--bg-card);
+            padding: 24px;
             border-radius: 12px;
-            margin-bottom: 18px;
-            transition: 0.3s;
+            transition: all 0.3s ease;
         }
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            background: var(--bg-card-hover);
         }
-        .card h3 {
-            color: #38bdf8;
+
+        .contact-item i {
+            font-size: 32px;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+        }
+
+        .contact-item p {
+            margin: 0;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .contact-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 16px;
+            display: block;
+            margin-top: 4px;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--secondary-color);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .social-link {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-card);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        footer {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 40px 20px;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-content {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
         }
-        .time {
-            color: #94a3b8;
+
+        .footer-copyright {
+            color: var(--text-muted);
             font-size: 14px;
-            font-weight: normal;
         }
-        .contact p {
-            font-size: 16px;
-            margin: 10px 0;
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
         }
-        .contact a {
-            color: #38bdf8;
+
+        .footer-links a {
+            color: var(--text-muted);
             text-decoration: none;
-        }
-        footer {
-            text-align: center;
-            padding: 30px 0;
-            color: #64748b;
             font-size: 14px;
-            margin-top: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: var(--shadow-md);
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(15, 23, 42, 0.98);
+                padding: 20px;
+                gap: 16px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .about-image {
+                order: -1;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                justify-content: flex-end !important;
+            }
+
+            .timeline-content {
+                width: calc(100% - 50px);
+                margin-left: 50px;
+                border-left: 4px solid var(--primary-color) !important;
+                border-right: none !important;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .project-card {
+                margin-bottom: 24px;
+            }
         }
     </style>
 </head>
 <body>
-
-<!-- 导航 -->
-<nav>
-    <div class="container nav-wrap">
-        <div class="logo">Qiao Yue</div>
-        <div class="nav">
-            <a href="#about">关于我</a>
-            <a href="#edu">教育经历</a>
-            <a href="#lab">实验室</a>
-            <a href="#intern">实习</a>
-            <a href="#contact">联系我</a>
+    <nav id="navbar">
+        <div class="container nav-wrap">
+            <div class="logo" onclick="scrollToSection('hero')">Qiao Yue</div>
+            <div class="nav-links" id="navLinks">
+                <a href="#about" onclick="scrollToSection('about')">关于我</a>
+                <a href="#skills" onclick="scrollToSection('skills')">专业技能</a>
+                <a href="#experience" onclick="scrollToSection('experience')">教育经历</a>
+                <a href="#projects" onclick="scrollToSection('projects')">项目实践</a>
+                <a href="#contact" onclick="scrollToSection('contact')">联系我</a>
+            </div>
+            <div class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
+    </nav>
+
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h1>乔越<span class="hero-title-highlight">.</span></h1>
+            <p>上海杉达学院 | 数据科学与大数据技术专业</p>
+            <div class="hero-tags">
+                <span class="tag">Python数据分析</span>
+                <span class="tag">数据挖掘</span>
+                <span class="tag">大数据处理</span>
+                <span class="tag">数据可视化</span>
+            </div>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">
+                    <i class="fas fa-folder-open"></i> 查看项目
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                    <i class="fas fa-envelope"></i> 联系我
+                </a>
+            </div>
+        </div>
+        <div class="scroll-indicator" onclick="scrollToSection('about')">
+            <i class="fas fa-chevron-down" style="color: var(--text-muted); font-size: 24px;"></i>
+        </div>
+    </section>
+
+    <section id="about" class="container">
+        <h2 class="section-title">关于我</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>我是<strong>乔越</strong>，上海杉达学院数据科学与大数据技术专业在读本科生。在校期间系统学习数据分析、数据挖掘、大数据架构、机器学习基础、数据库原理等专业课程，具备扎实的数据处理与数据分析能力。</p>
+                <p>熟练使用 Python、SQL 进行数据清洗、统计分析与可视化，熟悉 Hadoop、Spark 基础大数据生态，能够独立完成数据集处理、模型训练、数据报告撰写，热爱数据科学方向，持续深耕数据分析与大数据应用领域。</p>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <span class="stat-value">3+</span>
+                        <span class="stat-label">年学习经验</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">10+</span>
+                        <span class="stat-label">项目实践</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">GPA: 3.8</span>
+                        <span class="stat-label">专业成绩</span>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image">
+                <img src="https://neeko-copilot.bytedance.net/api/text_to_image?prompt=professional%20young%20data%20scientist%20portrait%20with%20modern%20tech%20background%20dark%20blue%20theme&image_size=portrait_4_3" alt="乔越">
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="container">
+        <h2 class="section-title">专业技能</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <i class="fas fa-code"></i>
+                <h3>Python编程</h3>
+                <p>熟练使用Python进行数据处理、分析与建模</p>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-database"></i>
+                <h3>SQL数据库</h3>
+                <p>精通MySQL等数据库操作与优化</p>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>数据可视化</h3>
+                <p>使用Matplotlib、Seaborn等工具制作精美图表</p>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-cubes"></i>
+                <h3>大数据技术</h3>
+                <p>熟悉Hadoop、Spark等大数据生态系统</p>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-brain"></i>
+                <h3>机器学习</h3>
+                <p>掌握分类、回归等经典机器学习算法</p>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-file-excel"></i>
+                <h3>数据清洗</h3>
+                <p>擅长数据预处理、缺失值处理与异常值检测</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="container">
+        <h2 class="section-title">教育与经历</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-date">2024.07 - 2024.09</span>
+                    <h3 class="timeline-title">数据分析实习生</h3>
+                    <p class="timeline-company">上海某科技公司</p>
+                    <div class="timeline-description">
+                        <p>负责业务数据提取、统计、报表制作与数据复盘辅助</p>
+                        <ul>
+                            <li>使用SQL查询业务数据库，完成用户、订单数据汇总</li>
+                            <li>用Python做数据清洗与指标统计，输出月度复盘数据</li>
+                            <li>规范数据统计口径，提升团队数据处理效率</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-date">2024.03 - 至今</span>
+                    <h3 class="timeline-title">科研助理</h3>
+                    <p class="timeline-company">校级大数据智能分析实验室</p>
+                    <div class="timeline-description">
+                        <p>参与校园数据集整理、数据清洗、可视化与分析工作</p>
+                        <ul>
+                            <li>使用Python完成数据去重、缺失值填充、异常值过滤</li>
+                            <li>制作数据可视化图表，支撑项目分析与展示</li>
+                            <li>协助完成基础分类、回归模型训练与测试</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-date">2022.09 - 至今</span>
+                    <h3 class="timeline-title">本科在读</h3>
+                    <p class="timeline-company">上海杉达学院</p>
+                    <div class="timeline-description">
+                        <p>数据科学与大数据技术专业</p>
+                        <ul>
+                            <li>主修：Python程序设计、数据库原理、大数据技术基础</li>
+                            <li>辅修：数据挖掘、机器学习、统计学、数据可视化</li>
+                            <li>GPA：3.8/4.0，多次获得校级奖学金</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="container">
+        <h2 class="section-title">项目实践</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <div class="project-content">
+                    <span class="project-category">数据分析</span>
+                    <h3 class="project-title">电商用户行为分析</h3>
+                    <p class="project-description">基于Python对电商平台用户行为数据进行分析，挖掘用户购买偏好和行为模式。</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">Pandas</span>
+                        <span class="project-tag">Matplotlib</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fas fa-external-link-alt"></i> 查看
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="project-content">
+                    <span class="project-category">机器学习</span>
+                    <h3 class="project-title">学生成绩预测模型</h3>
+                    <p class="project-description">使用机器学习算法构建学生成绩预测模型，帮助教师提前识别需要关注的学生。</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Scikit-learn</span>
+                        <span class="project-tag">回归分析</span>
+                        <span class="project-tag">特征工程</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fas fa-external-link-alt"></i> 查看
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <i class="fas fa-database"></i>
+                </div>
+                <div class="project-content">
+                    <span class="project-category">大数据</span>
+                    <h3 class="project-title">日志数据分析系统</h3>
+                    <p class="project-description">基于Spark框架实现大规模日志数据的实时分析与处理。</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Spark</span>
+                        <span class="project-tag">Hadoop</span>
+                        <span class="project-tag">实时处理</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fas fa-external-link-alt"></i> 查看
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="container">
+        <div class="contact-section">
+            <h2>联系我</h2>
+            <p>期待与您交流数据科学领域的想法与机会</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <p>手机</p>
+                    <a href="tel:13651843143">13651843143</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>邮箱</p>
+                    <a href="mailto:641027566@qq.com">641027566@qq.com</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-university"></i>
+                    <p>院校</p>
+                    <a href="#">上海杉达学院</a>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-weixin"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-copyright">© 2025 乔越 | 数据科学与大数据技术专业</div>
+            <div class="footer-links">
+                <a href="#about">关于我</a>
+                <a href="#skills">专业技能</a>
+                <a href="#contact">联系我</a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="back-to-top" id="backToTop" onclick="scrollToTop()">
+        <i class="fas fa-chevron-up"></i>
     </div>
-</nav>
 
-<!-- 首页 -->
-<div class="hero container">
-    <h1>乔越</h1>
-    <p>上海杉达学院 | 数据科学与大数据技术 | 在校生</p>
-    <div class="tags">
-        <span>Python数据分析</span>
-        <span>数据挖掘</span>
-        <span>大数据处理</span>
-        <span>数据可视化</span>
-    </div>
-</div>
+    <script>
+        const navbar = document.getElementById('navbar');
+        const navLinks = document.getElementById('navLinks');
+        const menuToggle = document.getElementById('menuToggle');
+        const backToTop = document.getElementById('backToTop');
 
-<!-- 关于我 -->
-<section id="about" class="container">
-    <h2 class="sec-title">关于我</h2>
-    <div class="card">
-        <p>我是<strong>乔越</strong>，上海杉达学院数据科学与大数据技术专业在读本科生。在校期间系统学习数据分析、数据挖掘、大数据架构、机器学习基础、数据库原理等专业课程，具备扎实的数据处理与数据分析能力。</p>
-        <br>
-        <p>熟练使用 Python、SQL 进行数据清洗、统计分析与可视化，熟悉 Hadoop、Spark 基础大数据生态，能够独立完成数据集处理、模型训练、数据报告撰写，热爱数据科学方向，持续深耕数据分析与大数据应用领域。</p>
-    </div>
-</section>
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+                backToTop.classList.add('show');
+            } else {
+                navbar.classList.remove('scrolled');
+                backToTop.classList.remove('show');
+            }
+        });
 
-<!-- 教育经历 -->
-<section id="edu" class="container">
-    <h2 class="sec-title">教育经历</h2>
-    <div class="card">
-        <h3>上海杉达学院 <span class="time">在读</span></h3>
-        <p><strong>专业：</strong>数据科学与大数据技术</p>
-        <p><strong>主修课程：</strong>Python程序设计、数据库原理、大数据技术基础、数据挖掘、机器学习、统计学、数据可视化、Spark开发</p>
-        <p><strong>专业技能：</strong>Python、MySQL、数据清洗、Matplotlib/Seaborn、机器学习基础、大数据集群操作</p>
-    </div>
-</section>
+        function toggleMenu() {
+            navLinks.classList.toggle('active');
+            menuToggle.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        }
 
-<!-- 实验室经历 -->
-<section id="lab" class="container">
-    <h2 class="sec-title">实验室科研经历</h2>
-    <div class="card">
-        <h3>校级大数据智能分析实验室 · 科研助理 <span class="time">2024.03 - 至今</span></h3>
-        <p>参与校园数据集整理、数据清洗、可视化与分析工作，协助团队完成科研项目的数据预处理与报告撰写。</p>
-        <br>
-        <p>• 使用 Python 完成数据去重、缺失值填充、异常值过滤</p>
-        <p>• 制作数据可视化图表，支撑项目分析与展示</p>
-        <p>• 协助完成基础分类、回归模型训练与测试</p>
-    </div>
-</section>
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+                navLinks.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        }
 
-<!-- 实习经历 -->
-<section id="intern" class="container">
-    <h2 class="sec-title">实习经历</h2>
-    <div class="card">
-        <h3>上海某科技公司 · 数据分析实习生 <span class="time">2024.07 - 2024.09</span></h3>
-        <p>负责业务数据提取、统计、报表制作与数据复盘辅助，协助团队完成日常数据监控与分析。</p>
-        <br>
-        <p>• 使用 SQL 查询业务数据库，完成用户、订单数据汇总</p>
-        <p>• 用 Python 做数据清洗与指标统计，输出月度复盘数据</p>
-        <p>• 规范数据统计口径，提升团队数据处理效率</p>
-    </div>
-</section>
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-<!-- 联系方式 -->
-<section id="contact" class="container">
-    <h2 class="sec-title">联系方式</h2>
-    <div class="card contact">
-        <p><strong>姓名：</strong>乔越</p>
-        <p><strong>手机：</strong>13651843143</p>
-        <p><strong>邮箱：</strong><a href="mailto:641027566@qq.com">641027566@qq.com</a></p>
-        <p><strong>院校：</strong>上海杉达学院</p>
-        <p><strong>专业：</strong>数据科学与大数据技术</p>
-    </div>
-</section>
-
-<!-- 底部 -->
-<footer>
-    <div class="container">© 2025 乔越 | 个人官网 All Rights Reserved</div>
-</footer>
-
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                scrollToSection(targetId);
+            });
+        });
+    </script>
 </body>
 </html>
